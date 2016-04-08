@@ -1,3 +1,5 @@
+<!-- Randomly place a .jpg on a 3 * 3 <form> every three seconds-->
+
 <html>
 <head>
 <meta http-equiv="refresh">
