@@ -1,4 +1,3 @@
-<!-- this could be removed {{#if loggedIn}} -->
 <template name="email">     
   <div class="container">
 	<form role="form" id="email-form">
@@ -21,50 +20,44 @@
 
 <template name="searchForm">  
   {{#if currentUser}}  <!-- {{#if loggedIn}} -->
-  <div class="container">
   <img src="images/NUIGlectureHall.jpg" alt="Pulpit Rock" style="width:400px;height:220px" align="right"><br><br><br><br>
   <h1>Enter Lecture Room!</h1><br>
   <div class="center">
   <form class="addDataForm">
 	<div class="row">
-		<div class="col-sm-3">		
-			<label class="form-control" for="make">Make</label>
+		<div class="col-sm-3">
+			<label class="form-control" for="Building">Building</label>
 		</div>
 		<div class="col-sm-6">
 			<input class="form-control" type="text"
-				name="make" placeHolder="Please Enter Make"><br>
+				name="Building" placeHolder="Please Enter Building Name"><br>
 		</div>
 	</div>
+	
 	<div class="row">
 		<div class="col-sm-3">
-			<label class="form-control" for="model">Model</label>
+			<label class="form-control" for="Room">Room</label>
 		</div>
 		<div class="col-sm-6">
 			<input class="form-control" type="text"
-				name="model" placeHolder="Please Enter Model"><br>
+				name="Room" placeHolder="Please Enter Room name"><br>
 		</div>
+	
+	
+	<div id="roomToDisplay">
+    ""
+	</div>	
+		
+	
+		
+		
+	
 	</div>
-	<div class="row">
-		<div class="col-sm-3">
-			<label class="form-control" for="age">Age</label>
-		</div>
-		<div class="col-sm-6">
-			<input class="form-control" type="text"
-				name="age" placeHolder="Please Enter Age"><br>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-sm-3">
-			<label class="form-control" for="milage">Milage</label>
-		</div>
-		<div class="col-sm-6">
-			<input class="form-control" type="text"
-				name="milage" placeHolder="Please Enter milage"><br>
-		</div>
-	</div>
-		<input type="submit" value="Save" class="btn btn-primary">
+		<input type="submit" value="Search Database" class="btn btn-primary">
 	</form>
-	</div>
+	
+	
+	
 	</div>
 	{{else}}
 	  <h1>You are not authorised to login to the Search.</h1>
@@ -73,6 +66,14 @@
 
 <template name="logining">     
   {{> loginButtons}}    
+</template>
+
+<template name="hello">
+  <button class="inc">Increment</button>
+  <p>The counter for increment is currently at {{increment}}.</p>
+  <button class="dec">Decrement</button>
+  <p>The counter for decrement is currently at {{decrement}}.</p>
+  <button class="both">Both counters simoultaneously.</button>
 </template>
 
 <template name="location">     
@@ -108,24 +109,18 @@
 		  <span class="icon-bar"></span>
 		  <span class="icon-bar"></span>
 		</button>
+		<a class="navbar-brand" href="/">Home Page</a>
 	  </div>
-	  <br>
 	  <div class="collapse navbar-collapse" id="#collapsibleNavbar">
 	    <ul class="nav navbar-nav">
 		  <li class="active"><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-		  <!-- <li><a href="email"><span class="glyphicon glyphicon-pencil"></span> Reg_eMail</a></li> -->
+		  <li><a href="email"><span class="glyphicon glyphicon-pencil"></span> Reg_eMail</a></li>
 		  <li><a href="collegeInfo"><span class="glyphicon glyphicon-user"></span> About Us</a></li>
 		  <li><a href="location"><span class="glyphicon glyphicon-cloud"></span> Our Location</a></li>
 		  <li><a href="searchForm"><span class="glyphicon glyphicon-cloud-download"></span> Search DataBase</a></li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
 			{{> loginButtons}}
-		</ul>
-		<ul class="nav navbar-nav navbar-right">
-			{{#with currentUser}}
-			{{> avatar user=this shape="rounded"}}
-			{{/with}}
-			<br>
 		</ul>
 	  </div>
 	</div>
@@ -144,13 +139,23 @@
     </a>
   </div>
   <div class="col-md-4">
-    <a href="images/nuigalway-sport-centre.jpg" class="thumbnail">
-      <h4>NUI Galway Sports and Leusure Centre. Swimming Pool, Wall Climbing...</h4> 
-      <img src="images/nuigalway-sport-centre.jpg" alt="Cinque Terre" style="width:200px;height:150px">
+    <a href="images/university.jpg" class="thumbnail">
+      <h4>This is NOT NUI Galway Quadrangle. Over in England Somewhere!!!</h4> 
+      <img src="images/university.jpg" alt="Cinque Terre" style="width:200px;height:150px">
     </a>
   </div>
 </div>
 	
+  <!-- <div class="dropdown" >
+  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
+  <span class="caret"></span></button>
+  <ul class="dropdown-menu">
+    <li><a href="#">Arts Millinium Building</a></li>
+    <li><a href="#">Information Technology Building (IT)</a></li>
+    <li><a href="#">Engineering Building</a></li>
+	<li><a href="#">Arts Concourse</a></li>	
+  </ul>
+  </div> -->
   </nav>
   </template>
   
@@ -188,5 +193,9 @@
 </template>
 
 <template name="home">
-  <h1>This is the Home Page.</h1>
+  <h1>This is the Home Pagee.</h1>
+</template>
+
+<template name = "nuigmap">
+
 </template>
