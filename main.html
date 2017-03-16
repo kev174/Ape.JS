@@ -1,15 +1,18 @@
 <head>
   <title>Lecture Rooms Search</title>
+  
+  
+  
 </head>
 
 <body>
 	<!-- this dispalys the 'TITLE' by calling templae resolution below -->
-	<!--<ul>
+	<ul>
 		{{#each resolutions}}
 			{{> resolution}}
 		{{/each}}
 	</ul>
-	-->
+	
 	<script>
 	  window.fbAsyncInit = function() {
 		FB.init({
@@ -27,14 +30,6 @@
 		 fjs.parentNode.insertBefore(js, fjs);
 	   }(document, 'script', 'facebook-jssdk'));
 	</script>
-	
-	<div class="container">
-		<div class="jumbotron">
-			<h1> NUI Galway</h1><br>
-			<h1>Lecture Hall</h1><br>
-			<h1>  Search!</h1>
-		</div>
-	</div>
 
 	<div
 	  class="fb-like"
@@ -43,10 +38,16 @@
 	  data-show-faces="true">
 	</div>
 	
+	<div class="container">
+		<div class="jumbotron">
+			<h1>NUI Galway Lecture Hall Search!</h1>
+		</div>
+	</div>
+	<br><br>
+
 	{{> myNavagator}}
-	
-	<!--{{> data}} 
-    {{> hello}}
+	<!--{{> data}} -->
+	<!-- {{> hello}}
 	{{> addData}}
 	{{> info}}
 	{{> contactUs}}
@@ -62,38 +63,35 @@
 	<table class="table table-bordered">
 		<thead>
 		<tr>
-			<th>Make</th>
-			<th>Model</th>
-			<th>Age</th>
-			<th>Milage</th>
+			<th>Building</th>
+			<th>Room</th>
 			<th>Action</th>
 		</tr>
 		</thead>
 		<tbody>
-		{{#each vehicles}}
+		
 		<tr>
+			
 			<td>
-				{{make}}
+				{{Building}}
+				
 			</td>
+			
 			<td>
-				{{model}}
-			</td>
-			<td>
-				{{age}}
-			</td>
-			<td>
-				{{milage}}
+				{{Room}}
 			</td>	
+			
 			<td>
-				<button id="delete" class="btn btn-danger">Delete</button>
+				{{Description}}
 			</td>
+			
 		</tr>
-		{{/each}}
+		
 		</tbody>
 	</table>
 </template>
 
-<!-- <template name="navigation">
+<template name="navigation">
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -125,4 +123,6 @@
             </div>
         </nav>
 </template>
--->
+
+
+
