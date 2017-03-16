@@ -1,17 +1,12 @@
-/* CSS declarations go here KC */
+/* CSS declarations go here */
 body {
     background-color: lightblue;
 	background-color: cornflowerblue;
 	color:red;
 }
 
-.jumbotron{
-	color: RED; /* #FFFFFF; */
-    background: url("bg.jpg") no-repeat center center; 
-    -webkit-background-size: 100% 100%;
-    -moz-background-size: 100% 100%;
-    -o-background-size: 100% 100%;
-    background-size: 100% 100%;
+.jumbotron {
+    background-color:red !important; 
 }
 
 h1 {
