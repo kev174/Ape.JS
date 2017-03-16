@@ -1,4 +1,5 @@
-//Resolutions = new Mongo.Collection('resolutions');
+Resolutions = new Mongo.Collection('resolutions');
+
 
 if (Meteor.isClient) {	
 	Template.body.helpers({
@@ -7,31 +8,7 @@ if (Meteor.isClient) {
 		}
 });
 }
-
-UI.registerHelper("getImageUser", function (userId) {
-    var user= Meteor.users.findOne(userId);
-    if (user.services)
-    {
-        if (user.services.facebook)
-            return user.services.facebook.picture;
-        if (user.services.twitter)
-            return user.services.twitter.profile_image_url;
-        if (user.services.google)
-            return user.services.google.picture;
-    }
-    else
-    {
-        return "images/withOutPhoto.png";
-    }
-});
-
-/*Accounts.onCreateUser(function(options, user) {
-    if (options.profile) {
-        options.profile.picture = "http://graph.facebook.com/" + user.services.facebook.id + "/picture/?type=large";
-        user.profile = options.profile;
-    }
-    return user;
-});*/
+	
 	
 Template.email.events({ // https://www.youtube.com/watch?v=IxDW1yL2R2o
   'submit #email-form':function(e,t){
@@ -47,7 +24,7 @@ if (Meteor.isServer) {
 	Meteor.startup(function(){
 		// code to run server at startup
 		process.env.MAIL_URL='smtp://postmaster%40sandboxbb0bf5d9b4514bd3bba5cb8bc2af9df1.mailgun.org:4eca808630d7c9b0aac50dac62a60121@smtp.mailgun.org:587';
-		//Accounts.emailTemplates.from='kev17404@yahoo.co.uk';
+		Accounts.emailTemplates.from='kev17404@yahoo.co.uk';
 		Accounts.emailTemplates.sitename='My Site';
 		
 		Accounts.emailTemplates.verifyEmail.subject = function(user) {
@@ -91,44 +68,74 @@ Template.hello.events({
   },
 });
 
-Template.comments.helpers({
-  comments : function() {
-    return Comments.find();
-  }
-});
+//Template.comments.helpers({
+  //comments : function() {
+    //return Comments.find();
+  //}
+//});
 
 Template.data.helpers({
-  vehicles : function() {
-    return Vehicles.find();
+  roomsdb : function() {
+	  console.log(roomsdb.findOne("Building" : building, "Room" : room).Room);
+    return roomsdb.findOne("Building" : building, "Room" : room);
   }
 });
 
-Template.addData.events({
-	'submit .addDataForm' : function(event, instance) {
+
+
+Template.data.helpers({
+  roomsdb : function() {
+	  
+	 //var building = event.target.Building.value;
+	//var room = event.target.Room.value;
+	
+	 console.log("YEP");
+	 
+	 
+	 
+return roomsdb.findOne("Building" : building, "Room" : room);  }
+});
+
+Template.searchForm.events ({
+	'submit .addDataForm' : function(event, instance){
 		event.preventDefault();
-		Vehicles.insert({make:event.target.make.value,
-			model:event.target.model.value,
-			age:event.target.age.value,
-			milage:event.target.milage.value});
+		console.log("YOUR SEARCHING!");
+		
+		building = event.target.Building.value;
+		 room = event.target.Room.value;
+		 
+		 var desc = roomsdb.findOne({"Building" : building , "Room" : room});
+		 console.log(desc.Description);
+		 window.alert(desc.Description);
+		 // 
+		 //return desc.Description;
+		 //document.getElementById("roomToDisplay").innerHTML =(desc.Description);​
+	 
+	}
+});
+
+Template.searchForm.helpers({
+  roomsdb : function() {
+	  
+	 //var building = event.target.Building.value;
+	//var room = event.target.Room.value;
+	 console.log("HI");
+	 
+	 
+	 
+	 //var desc = roomsdb.findOne({fields: {building: "MainConcourse","Building" : "AC213"} });
+    //console.log(desc.Description);
+	 
+	 
+    //return roomsdb.find();
   }
 });
 
-Template.data.helpers({
-  vehicles : function() {
-	  console.log(Vehicles.find().fetch());
-    return Vehicles.find();
-  }
-});
 
-Template.findUs.helpers({
-  loggedIn : function() {
-    return !!Meteor.user();
-  }
-});
 
 Template.data.events({
   'click #delete' : function(event, instance) {
 	  // Remove the vehicle with current id
-	  Vehicles.remove(this._id)
+	  rooms.remove(this._id)
   }
 });
