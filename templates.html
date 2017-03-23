@@ -19,6 +19,7 @@
 </template>
 
 <template name="searchForm">  
+	<div class="container-fluid">
   {{#if currentUser}}  <!-- {{#if loggedIn}} -->
   <img src="images/NUIGlectureHall.jpg" alt="Pulpit Rock" style="width:400px;height:220px" align="right"><br><br><br><br>
   <h1>Enter Lecture Room!</h1><br>
@@ -41,16 +42,7 @@
 		<div class="col-sm-6">
 			<input class="form-control" type="text"
 				name="Room" placeHolder="Please Enter Room name"><br>
-		</div>
-	
-	
-	<div id="roomToDisplay">
-    ""
-	</div>	
-		
-	
-		
-		
+		</div>	
 	
 	</div>
 		<input type="submit" value="Search Database" class="btn btn-primary">
@@ -60,21 +52,20 @@
 	
 	</div>
 	{{else}}
-	  <h1>You are not authorised to login to the Search.</h1>
+	<div class="col-sm-6 hidden-xs">
+	<h1>Not authorised for login</h1>
+	</div>
+	
+	<div class="col-sm-6 hidden-lg hidden-md hidden-sm">
+	<h1>No access</h1>
+	</div>
+	
 	{{/if}}
+	</div>
 </template>
 
-<template name="logining">     
-  {{> loginButtons}}    
-</template>
 
-<template name="hello">
-  <button class="inc">Increment</button>
-  <p>The counter for increment is currently at {{increment}}.</p>
-  <button class="dec">Decrement</button>
-  <p>The counter for decrement is currently at {{decrement}}.</p>
-  <button class="both">Both counters simoultaneously.</button>
-</template>
+
 
 <template name="location">     
   <h1>NUIG Location</h1><br>   
@@ -90,15 +81,7 @@
   
 </template>
 
-<template name="chainSmokers">
-  <h1>Find Us</h1>
-  <iframe
-    width="600" height="550"
-    frameborder="0" style="border : 0"
-    src="http://www.youtube.com/embed/Io0fBr1XBUA"
-    allowfullscreen>
-  </iframe>
-</template>
+
 
 <template name="myNavagator">
   <nav class="navbar navbar-inverse">
@@ -109,18 +92,24 @@
 		  <span class="icon-bar"></span>
 		  <span class="icon-bar"></span>
 		</button>
-		<a class="navbar-brand" href="/">Home Page</a>
 	  </div>
+	  <br>
 	  <div class="collapse navbar-collapse" id="#collapsibleNavbar">
 	    <ul class="nav navbar-nav">
 		  <li class="active"><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-		  <li><a href="email"><span class="glyphicon glyphicon-pencil"></span> Reg_eMail</a></li>
+		  <!-- <li><a href="email"><span class="glyphicon glyphicon-pencil"></span> Reg_eMail</a></li> -->
 		  <li><a href="collegeInfo"><span class="glyphicon glyphicon-user"></span> About Us</a></li>
 		  <li><a href="location"><span class="glyphicon glyphicon-cloud"></span> Our Location</a></li>
 		  <li><a href="searchForm"><span class="glyphicon glyphicon-cloud-download"></span> Search DataBase</a></li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
 			{{> loginButtons}}
+		</ul>
+		<ul class="nav navbar-nav navbar-right">
+			{{#with currentUser}}
+			{{> avatar user=this shape="rounded"}}
+			{{/with}}
+			<br>
 		</ul>
 	  </div>
 	</div>
@@ -139,36 +128,21 @@
     </a>
   </div>
   <div class="col-md-4">
-    <a href="images/university.jpg" class="thumbnail">
-      <h4>This is NOT NUI Galway Quadrangle. Over in England Somewhere!!!</h4> 
-      <img src="images/university.jpg" alt="Cinque Terre" style="width:200px;height:150px">
+    <a href="images/nuigalway-sport-centre.jpg" class="thumbnail">
+      <h4>NUI Galway Sports and Leusure Centre. Swimming Pool, Wall Climbing...</h4> 
+      <img src="images/nuigalway-sport-centre.jpg" alt="Cinque Terre" style="width:200px;height:150px">
     </a>
   </div>
-</div>
-	
-  <!-- <div class="dropdown" >
-  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
-  <span class="caret"></span></button>
-  <ul class="dropdown-menu">
-    <li><a href="#">Arts Millinium Building</a></li>
-    <li><a href="#">Information Technology Building (IT)</a></li>
-    <li><a href="#">Engineering Building</a></li>
-	<li><a href="#">Arts Concourse</a></li>	
-  </ul>
-  </div> -->
+</div>	
   </nav>
   </template>
   
- <template name="youTube">
-  <div class="embed-responsive embed-responsive-16by9">
-    <iframe class="embed-responsive-item" src="http://www.youtube.com/embed/Io0fBr1XBUA"></iframe>
-  </div>
- </template>
+ 
 
 <template name="collegeInfo">
   <h3>NUI Galway is the third largest University in Ireland.</h3>
   <h3>It is based in the heart of Galway City.</h3>
-  <h1>Introduction to NUIG</h1><br>
+  <h1>About us</h1><br>
 	
   <div class="center">
 	  <iframe
@@ -180,22 +154,91 @@
   </div>	  
 </template>
 
-<template name="searchForm10">   
-  <h1>This is my Search Form.</h1><br>     
-</template>
-
-<template name="aboutUs">
-  <h1>AboutUS Kevin C Lecture Room Search</h1>
-</template>
-
-<template name="contactUs">
-  <h1>This is the ContactUs template displaying this line of text.</h1>
-</template>
 
 <template name="home">
-  <h1>This is the Home Pagee.</h1>
+
+<h1>This is the Home Page.</h1>
+<h1> Here are some comments!</h1>
+			<!--{{> comments}} -->
+			{{> posts}}<br><br><br><br><br><br><br><br><br>
+			{{> showComments }}
+				
 </template>
 
+
+
+
+<template name ="posts">
+<div class="row col-xs-10 col-xs-offset-1">
+
+	<form class="form-horizontal" role="form" id="postForm">
+		<div class="row">
+		<div class="form-group">
+			<div class="col-xs-12" id="well-post">
+				<textarea class="form-control required" rows="3" id="inputPost"
+					placeholder="Enter comment here!" maxlength="500"></textarea>
+				<label id="charRemaining" for="inputPost">{{charRemaining}}</label>
+			</div>	
+		</div>
+		</div>	
+		<div class="form-group">
+			<div class="col-xs-3">
+			
+				<i class="fa fa-video-camera-retro fa-lg" aria-hidden="true"></i>
+			</div>
+		<div class="col-xs-3">
+			<i class="fa fa-video-camera fa-lg" aria-hidden="true"></i>
+		</div>
+		
+		<div class="col-xs-3">
+			<i class="fa fa-bar-chart fa-lg" aria-hidden="true"></i>
+		</div>
+		
+		<div class="col-xs-3">
+			<button type="submit" class="btn btn-primary">Post</button>
+			
+			<select name = "dropdown" id = "dropdown">
+				<option value="public">Public</option>
+				<option value="anonymous">Anonymous</option>
+			</select>
+		</div>
+		
+	</div>
+</form>
+
+</div>
+</template>		
+		
+<template name="showComments">
+<div class = "row" style="background-color:black;padding-right: 100px;padding-left: 100px;">
+{{#each comments}}	
+			<div class="well" style="background-color:red;" >
+				<div class="row">
+				<div class="col-sm-2 pull-left;" style="background-color:red;center:align;" ><p class="p2">USER:{{User}}&emsp;DATE:{{Date}}</p>
+					{{> avatar userId=createdBy shape ="rounded"}} 
+					</div>
+					<div class="col-sm-3 pull-right">
+						
+					</div>
+					</div>
+				<div class="row spacer" >
+					<div class="col-sm-12" >
+						<input class="form-control hidden" type ="text" id="edit {{_id}}" value={{post}}>
+						<div id="comments{{_id}}" >
+							{{Comment}}
+							
+							
+						</div>	
+					</div>
+					</div>
+					</div>
+					{{/each}}
+					</div>
+</template>
+						
+					
+				
+				
 <template name = "nuigmap">
 
 </template>
