@@ -1,13 +1,21 @@
-Resolutions = new Mongo.Collection('resolutions');
 
 
-if (Meteor.isClient) {	
-	Template.body.helpers({
-		resolutions: function(){
-			return Resolutions.find();
-		}
+UI.registerHelper("getImageUser", function (userId) {
+    var user= Meteor.users.findOne(userId);
+    if (user.services)
+    {
+        if (user.services.facebook)
+            return user.services.facebook.picture;
+        if (user.services.twitter)
+            return user.services.twitter.profile_image_url;
+        if (user.services.google)
+            return user.services.google.picture;
+    }
+    else
+    {
+        return "images/alien.gif";
+    }
 });
-}
 	
 	
 Template.email.events({ // https://www.youtube.com/watch?v=IxDW1yL2R2o
@@ -36,65 +44,24 @@ if (Meteor.isServer) {
 });
 }
 
-import { Template } from 'meteor/templating';
-import { ReactiveVar } from 'meteor/reactive-var';
+//import { Template } from 'meteor/templating';
+//import { ReactiveVar } from 'meteor/reactive-var';
 
-import './main.html';
+//import './main.html';
 // NOTE: when creating the class in the main.html the class has to be 
 // only a few chars long. or the .js code will not work. FU
-Template.hello.onCreated(function helloOnCreated() {
-  // counter starts at 0
-  this.increment = new ReactiveVar(0);
-  this.decrement = new ReactiveVar(20);
-});
 
-Template.hello.helpers({
-  increment() {
-    return Template.instance().increment.get();
-  },
-  decrement() {
-    return Template.instance().decrement.get();
-  },
-});
 
-Template.hello.events({
-  'click .inc, click .both'(event, instance) {
-    // increment the counter when button is clicked
-    instance.increment.set(instance.increment.get() + 1);
-  },
-  'click .dec, click .both'(event, instance) {
-    // increment the counter when button is clicked
-    instance.decrement.set(instance.decrement.get() - 1);
-  },
-});
 
-//Template.comments.helpers({
-  //comments : function() {
-    //return Comments.find();
-  //}
-//});
 
-Template.data.helpers({
-  roomsdb : function() {
-	  console.log(roomsdb.findOne("Building" : building, "Room" : room).Room);
-    return roomsdb.findOne("Building" : building, "Room" : room);
+Template.showComments.helpers({
+  comments : function() {
+	  console.log("Comments: " +comments.find().count());
+  return comments.find({}, {sort: {_id:-1}, limit: 5});
   }
 });
 
 
-
-Template.data.helpers({
-  roomsdb : function() {
-	  
-	 //var building = event.target.Building.value;
-	//var room = event.target.Room.value;
-	
-	 console.log("YEP");
-	 
-	 
-	 
-return roomsdb.findOne("Building" : building, "Room" : room);  }
-});
 
 Template.searchForm.events ({
 	'submit .addDataForm' : function(event, instance){
@@ -103,39 +70,90 @@ Template.searchForm.events ({
 		
 		building = event.target.Building.value;
 		 room = event.target.Room.value;
+		 console.log(comments.find().count());
 		 
 		 var desc = roomsdb.findOne({"Building" : building , "Room" : room});
 		 console.log(desc.Description);
 		 window.alert(desc.Description);
+		 
 		 // 
 		 //return desc.Description;
 		 //document.getElementById("roomToDisplay").innerHTML =(desc.Description);​
 	 
 	}
 });
+Template.comments.events ({
+	'submit .addCommentForm' : function(event, instance){
+		event.preventDefault();
+		var userD= Meteor.users.findOne(Meteor.userId);
+		var date = new Date();
+		var newDate = moment(date).format("DD.MM.YYYY");
+		var commentto = event.target.Comment.value;
+		
+		if(event.target.dropdown.value == "anonymous"){
+			console.log(event.target.dropdown.value);
+		comments.insert({"Comment":commentto,"User": "Anonymous user","Date": newDate});
+		}else{
+		comments.insert({"Comment":commentto,"User": userD.emails[0].address,"Date": newDate});
+		}
+		event.target.Comment.value = "Please Enter Comment Here";
+	}
+});
 
-Template.searchForm.helpers({
-  roomsdb : function() {
-	  
-	 //var building = event.target.Building.value;
-	//var room = event.target.Room.value;
-	 console.log("HI");
-	 
-	 
-	 
-	 //var desc = roomsdb.findOne({fields: {building: "MainConcourse","Building" : "AC213"} });
-    //console.log(desc.Description);
-	 
-	 
-    //return roomsdb.find();
-  }
+
+Template.posts.helpers({
+	charsRemaining: function(){
+		return Session.get('CharactersRemaining');
+	}
+});
+
+Template.posts.onRendered(function(){
+	$("#postForm").validate();
+});
+
+Template.posts.events({
+	'keyup #inputPost': function(event){
+		var inputText = event.target.value;
+		Session.set("CharactersRemaining",(500 - inputText.length) +" characters remaining");
+	}
+});
+
+Template.posts.events({
+	'keyup #inputPost': function(event){
+		var inputText = event.target.value;
+		Session.set("CharactersRemaining",(500 - inputText.length) +" characters remaining");
+	},
+	'submit #postForm': function(event){
+		event.preventDefault();
+		console.log("SUBMUT");
+		var post = event.target.inputPost.value;
+		var userD= Meteor.users.findOne(Meteor.userId);
+		var date = new Date();
+		var newDate = moment(date).format("DD.MM.YYYY");
+		Session.set("CharactersRemaining",500 +" characters remaining");
+		//comments.insert({"Comment":post,"User": userD.emails[0].address,"Date": newDate});
+		
+		if(event.target.dropdown.value == "anonymous"){
+			console.log(event.target.dropdown.value);
+		comments.insert({"Comment":post,"User": "Anonymous","Date": newDate});
+		}else{
+		comments.insert({"Comment":post,"User": userD.emails[0].address,"Date": newDate});
+		}
+		event.target.inputPost.value = "";
+
+	}
 });
 
 
 
-Template.data.events({
-  'click #delete' : function(event, instance) {
-	  // Remove the vehicle with current id
-	  rooms.remove(this._id)
-  }
-});
+
+
+
+
+
+		
+
+
+  
+
+
