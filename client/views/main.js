@@ -1,5 +1,3 @@
-//Resolutions = new Mongo.Collection('resolutions');
-
 if (Meteor.isClient) {	
 	Template.body.helpers({
 		resolutions: function(){
@@ -21,26 +19,8 @@ UI.registerHelper("getImageUser", function (userId) {
     }
     else
     {
-        return "images/withOutPhoto.png";
+        return "images/alien.gif";
     }
-});
-
-/*Accounts.onCreateUser(function(options, user) {
-    if (options.profile) {
-        options.profile.picture = "http://graph.facebook.com/" + user.services.facebook.id + "/picture/?type=large";
-        user.profile = options.profile;
-    }
-    return user;
-});*/
-	
-Template.email.events({ // https://www.youtube.com/watch?v=IxDW1yL2R2o
-  'submit #email-form':function(e,t){
-	  e.preventDefault();
-	  var toAddr=t.find('#inputEmail').value;
-	  var subj=t.find('#inputSubject').value;
-	  var body=t.call('#inputBody').value;
-	  Meteor.call('sendEmail',toAddr,subj,body);
-  }
 });
 
 if (Meteor.isServer) {	
@@ -59,76 +39,32 @@ if (Meteor.isServer) {
 });
 }
 
-import { Template } from 'meteor/templating';
-import { ReactiveVar } from 'meteor/reactive-var';
-
-import './main.html';
-// NOTE: when creating the class in the main.html the class has to be 
-// only a few chars long. or the .js code will not work. FU
-Template.hello.onCreated(function helloOnCreated() {
-  // counter starts at 0
-  this.increment = new ReactiveVar(0);
-  this.decrement = new ReactiveVar(20);
-});
-
-Template.hello.helpers({
-  increment() {
-    return Template.instance().increment.get();
-  },
-  decrement() {
-    return Template.instance().decrement.get();
-  },
-});
-
-Template.hello.events({
-  'click .inc, click .both'(event, instance) {
-    // increment the counter when button is clicked
-    instance.increment.set(instance.increment.get() + 1);
-  },
-  'click .dec, click .both'(event, instance) {
-    // increment the counter when button is clicked
-    instance.decrement.set(instance.decrement.get() - 1);
-  },
-});
-
-Template.comments.helpers({
-  comments : function() {
-    return Comments.find();
-  }
-});
-
-Template.data.helpers({
-  vehicles : function() {
-    return Vehicles.find();
-  }
-});
-
-Template.addData.events({
-	'submit .addDataForm' : function(event, instance) {
+Template.searchForm.events ({
+	'submit .addDataForm' : function(event, instance){
 		event.preventDefault();
-		Vehicles.insert({make:event.target.make.value,
-			model:event.target.model.value,
-			age:event.target.age.value,
-			milage:event.target.milage.value});
-  }
+		console.log("YOUR SEARCHING!");
+		
+		building = event.target.Building.value;
+		 room = event.target.Room.value;
+		 
+		 var desc = roomsdb.findOne({"Building" : building , "Room" : room});
+		 console.log(desc.Description);
+		 window.alert(desc.Description);
+		 // 
+		 //return desc.Description;
+		 //document.getElementById("roomToDisplay").innerHTML =(desc.Description);​
+	 
+	}
 });
 
-Template.data.helpers({
-  vehicles : function() {
-	  console.log(Vehicles.find().fetch());
-    return Vehicles.find();
-  }
-});
-
-Template.findUs.helpers({
-  loggedIn : function() {
-    return !!Meteor.user();
-  }
-});
-
-Template.data.events({
-  'click #delete' : function(event, instance) {
-	  // Remove the vehicle with current id
-	  Vehicles.remove(this._id)
+Template.searchForm.helpers({
+  roomsdb : function() {
+	  
+	 //var building = event.target.Building.value;
+	//var room = event.target.Room.value;
+	 console.log("HI"); 
+	 //var desc = roomsdb.findOne({fields: {building: "MainConcourse","Building" : "AC213"} });
+    //console.log(desc.Description); 
+    //return roomsdb.find();
   }
 });
