@@ -2,14 +2,8 @@
   <title>Lecture Rooms Search</title>
 </head>
 
+<!-- Adds the facebook likes -->
 <body>
-	<!-- this dispalys the 'TITLE' by calling templae resolution below -->
-	<!--<ul>
-		{{#each resolutions}}
-			{{> resolution}}
-		{{/each}}
-	</ul>
-	-->
 	<script>
 	  window.fbAsyncInit = function() {
 		FB.init({
@@ -28,7 +22,7 @@
 	   }(document, 'script', 'facebook-jssdk'));
 	</script>
 	
-	<div class="container">
+	<div class="container-fluid">
 		<div class="jumbotron">
 			<h1> NUI Galway</h1><br>
 			<h1>Lecture Hall</h1><br>
@@ -43,86 +37,6 @@
 	  data-show-faces="true">
 	</div>
 	
+	<!-- 'myNavigator' launches the main web page -->
 	{{> myNavagator}}
-	
-	<!--{{> data}} 
-    {{> hello}}
-	{{> addData}}
-	{{> info}}
-	{{> contactUs}}
-	{{> youTube}} -->
-  
 </body>
-
-<template name="resolution">
-	<li>{{title}}</li>
-</template>
-	
-<template name="data">     
-	<table class="table table-bordered">
-		<thead>
-		<tr>
-			<th>Make</th>
-			<th>Model</th>
-			<th>Age</th>
-			<th>Milage</th>
-			<th>Action</th>
-		</tr>
-		</thead>
-		<tbody>
-		{{#each vehicles}}
-		<tr>
-			<td>
-				{{make}}
-			</td>
-			<td>
-				{{model}}
-			</td>
-			<td>
-				{{age}}
-			</td>
-			<td>
-				{{milage}}
-			</td>	
-			<td>
-				<button id="delete" class="btn btn-danger">Delete</button>
-			</td>
-		</tr>
-		{{/each}}
-		</tbody>
-	</table>
-</template>
-
-<!-- <template name="navigation">
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">AuthApp</a>
-                </div>
-                <div class="collapse navbar-collapse" id="myNavbar">
-                    <ul class="nav navbar-nav">
-                        <li>
-                            <a href="/">Home</a>
-                        </li>
-                        <li>
-                            <a href="contactUS">Contact Us</a>
-                        </li>
-                        <li>
-                            <a href="findUS">Find Us</a>
-                        </li>
-                        <li>
-                            <a href="aboutUs">About Us kevin</a>
-                        </li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">                     
-                    </ul>
-                </div>
-            </div>
-        </nav>
-</template>
--->
