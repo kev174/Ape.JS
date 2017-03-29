@@ -20,64 +20,51 @@
 </template>
 
 <template name="searchForm">  
-  {{#if currentUser}}  <!-- {{#if loggedIn}} -->
-  <div class="container">
+  <div class="container-fluid">
+  {{#if currentUser}}  <!-- {{#if loggedIn}} NOT working for me-->
   <img src="images/NUIGlectureHall.jpg" alt="Pulpit Rock" style="width:400px;height:220px" align="right"><br><br><br><br>
   <h1>Enter Lecture Room!</h1><br>
   <div class="center">
   <form class="addDataForm">
 	<div class="row">
-		<div class="col-sm-3">		
-			<label class="form-control" for="make">Make</label>
+		<div class="col-sm-3">
+			<label class="form-control" for="Building">Building</label>
 		</div>
 		<div class="col-sm-6">
 			<input class="form-control" type="text"
-				name="make" placeHolder="Please Enter Make"><br>
+				name="Building" placeHolder="Please Enter Building Name"><br>
 		</div>
 	</div>
+	
 	<div class="row">
 		<div class="col-sm-3">
-			<label class="form-control" for="model">Model</label>
+			<label class="form-control" for="Room">Room</label>
 		</div>
 		<div class="col-sm-6">
 			<input class="form-control" type="text"
-				name="model" placeHolder="Please Enter Model"><br>
+				name="Room" placeHolder="Please Enter Room name"><br>
 		</div>
+			
 	</div>
-	<div class="row">
-		<div class="col-sm-3">
-			<label class="form-control" for="age">Age</label>
-		</div>
-		<div class="col-sm-6">
-			<input class="form-control" type="text"
-				name="age" placeHolder="Please Enter Age"><br>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-sm-3">
-			<label class="form-control" for="milage">Milage</label>
-		</div>
-		<div class="col-sm-6">
-			<input class="form-control" type="text"
-				name="milage" placeHolder="Please Enter milage"><br>
-		</div>
-	</div>
-		<input type="submit" value="Save" class="btn btn-primary">
+		<input type="submit" value="Search Database" class="btn btn-primary">
 	</form>
-	</div>
+	
 	</div>
 	{{else}}
-	  <h1>You are not authorised to login to the Search.</h1>
+		<div class="col-sm-6 hidden-xs">
+			<h1>Not authorised for login.</h1>
+		</div>
+		
+		<div class="col-sm-6 hidden-lg hidden-md hidden-sm">
+			<h1>No Access.</h1>
+		</div>	
 	{{/if}}
-</template>
-
-<template name="logining">     
-  {{> loginButtons}}    
+	</div>
 </template>
 
 <template name="location">     
   <h1>NUIG Location</h1><br>   
-  
+ 
   <div class="center">
 	  <iframe 
 		width="600" height="550" align="right"
@@ -85,18 +72,7 @@
 		src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDd1ojVrwE7-Wng_gVEZnm8B0d640NpBi8
 		&q=National+University+of+Ireland,Galway+Ireland" allowfullscreen>
 	  </iframe>
-  </div><br>
-  
-</template>
-
-<template name="chainSmokers">
-  <h1>Find Us</h1>
-  <iframe
-    width="600" height="550"
-    frameborder="0" style="border : 0"
-    src="http://www.youtube.com/embed/Io0fBr1XBUA"
-    allowfullscreen>
-  </iframe>
+  </div>
 </template>
 
 <template name="myNavagator">
@@ -149,21 +125,16 @@
       <img src="images/nuigalway-sport-centre.jpg" alt="Cinque Terre" style="width:200px;height:150px">
     </a>
   </div>
-</div>
-	
+</div>	
   </nav>
   </template>
-  
- <template name="youTube">
-  <div class="embed-responsive embed-responsive-16by9">
-    <iframe class="embed-responsive-item" src="http://www.youtube.com/embed/Io0fBr1XBUA"></iframe>
-  </div>
- </template>
 
 <template name="collegeInfo">
-  <h3>NUI Galway is the third largest University in Ireland.</h3>
-  <h3>It is based in the heart of Galway City.</h3>
-  <h1>Introduction to NUIG</h1><br>
+	<div class="container-fluid">
+		<h3>NUI Galway is the third largest University in Ireland.</h3>
+		<h3>It is based in the heart of Galway City.</h3>
+		<h1>About Us!</h1><br>
+	</div>
 	
   <div class="center">
 	  <iframe
@@ -173,18 +144,6 @@
 		allowfullscreen>
 	  </iframe>
   </div>	  
-</template>
-
-<template name="searchForm10">   
-  <h1>This is my Search Form.</h1><br>     
-</template>
-
-<template name="aboutUs">
-  <h1>AboutUS Kevin C Lecture Room Search</h1>
-</template>
-
-<template name="contactUs">
-  <h1>This is the ContactUs template displaying this line of text.</h1>
 </template>
 
 <template name="home">
