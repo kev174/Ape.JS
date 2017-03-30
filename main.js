@@ -1,5 +1,6 @@
 
 
+
 UI.registerHelper("getImageUser", function (userId) {
     var user= Meteor.users.findOne(userId);
     if (user.services)
@@ -16,17 +17,44 @@ UI.registerHelper("getImageUser", function (userId) {
         return "images/alien.gif";
     }
 });
+
+/*
+import { Email } from 'meteor/email' ;
+// Server: Define a method that the client can call.
+Meteor.methods({
+  sendEmail(to, from, subject, text) {
+    // Make sure that all arguments are strings.
+    
+    // Let other method calls from the same client start running, without
+    // waiting for the email sending to complete.
+    this.unblock();
 	
+	Email.send({ to, from, subject, text });
 	
-Template.email.events({ // https://www.youtube.com/watch?v=IxDW1yL2R2o
-  'submit #email-form':function(e,t){
-	  e.preventDefault();
-	  var toAddr=t.find('#inputEmail').value;
-	  var subj=t.find('#inputSubject').value;
-	  var body=t.call('#inputBody').value;
-	  Meteor.call('sendEmail',toAddr,subj,body);
   }
 });
+
+Template.email.events({
+	'submit #email-form': function(event){
+		console.log("WHY");
+		event.preventDefault();
+		var to="b.murphy50@nuigalway.ie";
+	var from="b.murphy50@nuigalway.ie";
+	var subject="NUIG WEBSITE";
+	var text="I REALLY WANT THIS TO WORK ALREADY";
+	Email.send({ to, from, subject, text });
+	}
+});
+
+Meteor.call(
+  'sendEmail',
+  'alice@example.com',
+  'bob@example.com',
+  'Hello from Meteor!',
+  'This is a test of Email.send.'
+);
+
+*/
 
 if (Meteor.isServer) {	
 	Meteor.startup(function(){
@@ -44,15 +72,20 @@ if (Meteor.isServer) {
 });
 }
 
-//import { Template } from 'meteor/templating';
-//import { ReactiveVar } from 'meteor/reactive-var';
+import { Template } from 'meteor/templating';
+import { ReactiveVar } from 'meteor/reactive-var';
 
-//import './main.html';
+import './main.html';
 // NOTE: when creating the class in the main.html the class has to be 
 // only a few chars long. or the .js code will not work. FU
 
 
-
+Template.comments.helpers({
+  comments : function() {
+	  console.log("Comments: " +comments.find().count());
+    return comments.find();
+  }
+});
 
 Template.showComments.helpers({
   comments : function() {
@@ -72,9 +105,18 @@ Template.searchForm.events ({
 		 room = event.target.Room.value;
 		 console.log(comments.find().count());
 		 
+		 if(building == "" || room == ""){
+			 window.alert("ALL FIELDS MUST BE ENTERED");
+			 return;
+		 }
+		 
 		 var desc = roomsdb.findOne({"Building" : building , "Room" : room});
 		 console.log(desc.Description);
-		 window.alert(desc.Description);
+		 
+		 //var str = document.getElementById("roomDesc").innerHTML; 
+		 //var res = str.replace("Microsoft", "W3Schools");
+		 document.getElementById("roomDesc").innerHTML = desc.Description;
+		 //window.alert(desc.Description);
 		 
 		 // 
 		 //return desc.Description;
@@ -89,6 +131,8 @@ Template.comments.events ({
 		var date = new Date();
 		var newDate = moment(date).format("DD.MM.YYYY");
 		var commentto = event.target.Comment.value;
+		
+		
 		
 		if(event.target.dropdown.value == "anonymous"){
 			console.log(event.target.dropdown.value);
@@ -143,6 +187,16 @@ Template.posts.events({
 
 	}
 });
+
+
+Template.message.helpers({
+	//var user = Meteor.users.findOne(Meteor.userId);
+	//return user.message;
+	  
+	  
+
+});
+
 
 
 
