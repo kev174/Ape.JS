@@ -109,6 +109,23 @@ background-color: blue;
 			
 
 	}
+	
+	.p3 {
+		font-family: "Times New Roman", Times, serif;
+		font-size: 40px;
+		font-style: normal;
+		font-variant: normal;
+		font-weight: bold;
+		line-height: 26.4px;
+		text-align: left;
+		color: black;
+		background-color: red;
+		text-align: center;
+		border: 5px solid gray;
+		padding-left: 5cm;
+		padding-right: 5cm;	
+
+	}
 	h3 {
 		font-family: "Brush Script MT", cursive;
 		font-size: 30px;
