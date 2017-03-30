@@ -1,0 +1,394 @@
+<template name="email" >   
+
+  <div class="container" style="background-color:red;">
+	<form role="form" id="email-form">
+		<div class="form-group">
+			<label for="inputemail">Email Address</label>
+			<input type="text" class="form-control" id="inputEmail" placeHolder="Enter eMail">
+		</div>
+		<div class="form-group">
+			<label for="inputsubject">subject</label>
+			<input type="text" class="form-control" id="inputSubject" placeHolder="Your Query">
+		</div>
+		<div class="form-group">
+			<label for="inputbody">Body</label>
+			<input type="text" class="form-control" id="inputBody" placeHolder="Body">
+		</div>
+		<button type="submit" class="btn btn-primary">Send eMail</button>
+	</form>
+  </div>	
+  
+</template>
+
+<template name="searchForm">  
+
+	<p id="roomDesc" class="p3">Enter a room to search for below and the results will be displayed here!<br><br></p>
+	<div class="container-fluid">
+  {{#if currentUser}}  <!-- {{#if loggedIn}} -->
+  <img src="images/NUIGlectureHall.jpg" alt="Pulpit Rock" style="width:400px;height:220px" align="right"><br><br><br><br>
+  <h1>Enter Lecture Room!</h1><br>
+  <div class="center">
+  <form class="addDataForm">
+	<div class="row">
+		<div class="col-sm-3">
+			<label class="form-control" for="Building">Building</label>
+		</div>
+		<div class="col-sm-6">
+			<input class="form-control" type="text"
+				name="Building" placeHolder="Please Enter Building Name"><br>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-sm-3">
+			<label class="form-control" for="Room">Room</label>
+		</div>
+		<div class="col-sm-6">
+			<input class="form-control" type="text"
+				name="Room" placeHolder="Please Enter Room name"><br>
+		</div>	
+	
+	</div>
+		<input type="submit" value="Search Database" class="btn btn-primary">
+	</form>
+	
+	
+	
+	</div>
+	{{else}}
+	<div class="col-sm-6 hidden-xs">
+	<h1>Not authorised for login</h1>
+	</div>
+	
+	<div class="col-sm-6 hidden-lg hidden-md hidden-sm">
+	<h1>No access</h1>
+	</div>
+	
+	{{/if}}
+	</div>
+	
+	
+</template>
+
+
+
+
+<template name="location">     
+  <h1>NUIG Location</h1><br>   
+  
+  <div class="center">
+	  <iframe 
+		width="600" height="550" align="right"
+		frameborder="0" style="border : 0"
+		src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDd1ojVrwE7-Wng_gVEZnm8B0d640NpBi8
+		&q=National+University+of+Ireland,Galway+Ireland" allowfullscreen>
+	  </iframe>
+  </div><br>
+  
+</template>
+
+
+
+<template name="myNavagator">
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+	  <div class="navbar-header">
+	    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#collapsibleNavbar">
+		  <span class="icon-bar"></span>
+		  <span class="icon-bar"></span>
+		  <span class="icon-bar"></span>
+		</button>
+	  </div>
+	  <br>
+	  <div class="collapse navbar-collapse" id="#collapsibleNavbar">
+	    <ul class="nav navbar-nav">
+		  <li class="active"><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+		  <li><a href="collegeInfo"><span class="glyphicon glyphicon-user"></span> About Us</a></li>
+		  <li><a href="location"><span class="glyphicon glyphicon-map-marker"></span> Our Location</a></li>
+		  <li><a href="searchForm"><span class="glyphicon glyphicon-cloud-download"></span> Search DataBase</a></li>
+		  <li><a href="map"><span class="glyphicon glyphicon-hand-right"></span> University Grounds</a></li>
+		  <li><a href="message"><span class="glyphicon glyphicon-eye-open"></span> Message Users</a></li>
+		</ul>
+		<ul class="nav navbar-nav navbar-right">
+			{{> loginButtons}}
+		</ul>
+		<ul class="nav navbar-nav navbar-right">
+			{{#with currentUser}}
+			{{> avatar user=this shape="rounded"}}
+			{{/with}}
+			<br>
+		</ul>
+	  </div>
+	</div>
+	
+  
+  <div class="row">
+  <div class="col-md-4">
+    <a href="images/ArtsMillinium.jpg" class="thumbnail">
+      <h4>Arts Millinium Building. Home of Next Generation and Programming Lectures.</h4> 
+      <img src="images/ArtsMillinium.jpg" alt="Pulpit Rock" style="width:200px;height:150px">
+    </a>
+  </div>
+  <div class="col-md-4">
+    <a href="images/Engineering.jpg" class="thumbnail">
+      <h4>Engineering Building. Home to Bressies Electric Engineering Lectures and labs."</h4>
+      <img src="images/Engineering.jpg" alt="Moustiers Sainte Marie" style="width:200px;height:150px">
+    </a>
+  </div>
+  <div class="col-md-4">
+    <a href="images/nuigalway-sport-centre.jpg" class="thumbnail">
+      <h4>NUI Galway Sports and Leusure Centre. Swimming Pool, Wall Climbing...</h4> 
+      <img src="images/nuigalway-sport-centre.jpg" alt="Cinque Terre" style="width:200px;height:150px">
+    </a>
+  </div>
+</div>	
+  </nav>
+  </template>
+  
+ <template name="message">
+ 
+ <div class="container" style="background-color:red;">
+	<form role="form" id="message-form">
+		<div class="form-group">
+			<label for="inputemail">Message</label>
+			<input type="text" class="form-control" id="inputEmail" placeHolder="Enter message">
+		</div>
+		<div class="form-group">
+			<label for="inputuser">Send to the following user</label>
+			<input type="text" class="form-control" id="inputSubject" placeHolder="User">
+		</div>
+		
+		<button type="submit" class="btn btn-primary">Send Message</button>
+	</form>
+	
+  </div>	
+ 
+ </template>
+
+<template name="collegeInfo"  class="p3">
+  <h3>NUI Galway is the third largest University in Ireland.</h3>
+  <h3>It is based in the heart of Galway City.</h3>
+  <h1>About us</h1><br>
+ 
+ <p style="background-color:black;">
+  
+  NUI Galway (Irish OÉ Gaillimh) is a constituent university of the National University of Ireland. It is located in Ireland's westerly city of Galway. A tertiary-level educational institution, it is ranked among the top 2 per cent of universities in the world.[2] The University is ranked #249 in the 2016 QS World University Rankings and has been also been awarded the full five QS stars for excellence.[3]
+
+The university was founded in 1845 as Queen's College, Galway, and was more recently known as University College, Galway (UCG) (Irish: Coláiste na hOllscoile, Gaillimh or COG). Alumni include the incumbent Taoiseach and President of Ireland, Enda Kenny and Michael D. Higgins respectively, as well as numerous other prominent politicians. Other leading figures in Irish official life to have been educated here include Attorney General Máire Whelan and Comptroller and Auditor General Seamus McCarthy.
+
+NUI Galway is a member of the Coimbra Group, a network of 40 long-established European universities.
+</p>
+	
+  <div class="center">
+	  <iframe
+		width="530" height="350" 
+		frameborder="0" style="border : 0"
+		src="https://www.youtube.com/embed/QbZzioufNKY"
+		allowfullscreen>
+	  </iframe>
+  </div>	  
+</template>
+
+<template name="searchForm10">   
+  <h1>This is my Search Form.</h1><br>     
+</template>
+
+<template name="aboutUs">
+  <h1>AboutUS Kevin C Lecture Room Search</h1>
+</template>
+
+<template name="contactUs">
+  <h1>This is the ContactUs template displaying this line of text.</h1>
+</template>
+
+<template name="home">
+
+<h1>This is the Home Page.</h1>
+<h1> Here are some comments!</h1>
+			 
+			{{> posts}}<br><br><br><br><br><br><br><br><br>
+			{{> showComments }} 
+			
+			<!--{{> email}} -->
+				
+</template>
+
+<template name="map" >
+
+<h1>The NUIG map</h1>
+
+<div style="background-color=black;" >
+
+<a href="images/nuig_map.jpg" class="thumbnail">
+      <h4>NUIG MAP</h4> 
+      <img src="images/nuig_map.jpg" alt="Pulpit Rock" style="width:1000px;height:500px">
+    </a>
+	
+	</div>
+	<!--
+<div style="background-color=black;">
+<div style="padding-right: 100px;padding-left: 100px;">
+<img src="images/nuig_map.jpg" align="middle" width="1500" height="600" >
+</div>
+</div>-->
+
+</template>
+<template name  = "comments">
+<p class="p1">
+<table class ="table table-borderless">
+
+<thead>
+
+<tr>
+
+
+<th style="color:blue;margin-left:30px;font-size: 50px;">Comment</th>
+
+
+
+<th style="color:blue;margin-left:30px;font-size: 50px;">User</th>
+
+<th style="color:blue;margin-left:30px;font-size: 50px;">Date</th>
+
+
+
+</tr>
+
+</thead>
+<tbody>
+
+{{#each comments}}
+<tr>
+<td> 
+<p class="p1">
+
+{{Comment}}
+</p>
+
+</td>
+<td>
+
+{{User}}
+
+</td>
+
+<td>
+
+{{Date}}
+
+</td>
+</tr>
+
+
+{{/each}}
+
+
+</tbody>
+</table>
+</p>
+<div style = "background-color: red;">
+
+{{#if currentUser}}
+
+<th style="color:blue;margin-left:30px;font-size: 50px;">Leave a comment:</th>
+
+  <form class="addCommentForm">
+	<div class="row">
+	<select name = "dropdown" id = "dropdown">
+  <option value="public">Public</option>
+  <option value="anonymous">Anonymous</option>
+	</select>
+		
+		<div class="col-sm-6">
+			<input class="form-control" type="text"
+				name="Comment" placeHolder="Please Enter Comment Here">
+		</div>
+	</div>
+
+		<input type="submit" value="Leave comment" class="btn btn-primary">
+		
+	</form>
+
+{{else}}
+<h2>
+YOU MUST BE LOGGED IN TO COMMENT!
+</h2>
+{{/if}}
+
+</div>
+</template>
+
+<template name ="posts">
+<div class="row col-xs-10 col-xs-offset-1">
+
+	<form class="form-horizontal" role="form" id="postForm">
+		<div class="row">
+		<div class="form-group">
+			<div class="col-xs-12" id="well-post">
+				<textarea class="form-control required" rows="3" id="inputPost"
+					placeholder="Enter comment here!" maxlength="500"></textarea>
+				<label id="charRemaining" for="inputPost">{{charRemaining}}</label>
+			</div>	
+		</div>
+		</div>	
+		<div class="form-group">
+			<div class="col-xs-3">
+			
+				<i class="fa fa-video-camera-retro fa-lg" aria-hidden="true"></i>
+			</div>
+		<div class="col-xs-3">
+			<i class="fa fa-video-camera fa-lg" aria-hidden="true"></i>
+		</div>
+		
+		<div class="col-xs-3">
+			<i class="fa fa-bar-chart fa-lg" aria-hidden="true"></i>
+		</div>
+		
+		<div class="col-xs-3">
+			<button type="submit" class="btn btn-primary">Post</button>
+			
+			<select name = "dropdown" id = "dropdown">
+				<option value="public">Public</option>
+				<option value="anonymous">Anonymous</option>
+			</select>
+		</div>
+		
+	</div>
+</form>
+
+</div>
+</template>		
+		
+<template name="showComments">
+<div class = "row" style="background-color:black;padding-right: 100px;padding-left: 100px;">
+{{#each comments}}	
+			<div class="well" style="background-color:red;" >
+				<div class="row">
+				<div class="col-sm-2 pull-left;" style="background-color:red;center:align;" ><p class="p2">USER:{{User}}&emsp;DATE:{{Date}}</p>
+					{{> avatar userId=createdBy shape ="rounded"}} 
+					</div>
+					<div class="col-sm-3 pull-right">
+						
+					</div>
+					</div>
+				<div class="row spacer" >
+					<div class="col-sm-12" >
+						<input class="form-control hidden" type ="text" id="edit {{_id}}" value={{post}}>
+						<div id="comments{{_id}}" >
+							{{Comment}}
+							
+							
+						</div>	
+					</div>
+					</div>
+					</div>
+					{{/each}}
+					</div>
+</template>
+						
+				
+				
+				
+<template name = "nuigmap">
+
+</template>
