@@ -1,5 +1,6 @@
-<template name="email">     
-  <div class="container">
+<template name="email" >   
+
+  <div class="container" style="background-color:red;">
 	<form role="form" id="email-form">
 		<div class="form-group">
 			<label for="inputemail">Email Address</label>
@@ -16,9 +17,12 @@
 		<button type="submit" class="btn btn-primary">Send eMail</button>
 	</form>
   </div>	
+  
 </template>
 
 <template name="searchForm">  
+
+	<p id="roomDesc" class="p3">Enter a room to search for below and the results will be displayed here!<br><br></p>
 	<div class="container-fluid">
   {{#if currentUser}}  <!-- {{#if loggedIn}} -->
   <img src="images/NUIGlectureHall.jpg" alt="Pulpit Rock" style="width:400px;height:220px" align="right"><br><br><br><br>
@@ -62,6 +66,8 @@
 	
 	{{/if}}
 	</div>
+	
+	
 </template>
 
 
@@ -97,10 +103,14 @@
 	  <div class="collapse navbar-collapse" id="#collapsibleNavbar">
 	    <ul class="nav navbar-nav">
 		  <li class="active"><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-		  <!-- <li><a href="email"><span class="glyphicon glyphicon-pencil"></span> Reg_eMail</a></li> -->
+		  <li><a href="email"><span class="glyphicon glyphicon-pencil"></span> Reg_eMail</a></li> 
 		  <li><a href="collegeInfo"><span class="glyphicon glyphicon-user"></span> About Us</a></li>
 		  <li><a href="location"><span class="glyphicon glyphicon-cloud"></span> Our Location</a></li>
 		  <li><a href="searchForm"><span class="glyphicon glyphicon-cloud-download"></span> Search DataBase</a></li>
+		  <li><a href="map"><span class="glyphicon glyphicon-cloud-download"></span> Map</a></li>
+		  <li><a href="message"><span class="glyphicon glyphicon-cloud-download"></span> Message Users</a></li>
+
+
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
 			{{> loginButtons}}
@@ -113,6 +123,7 @@
 		</ul>
 	  </div>
 	</div>
+	
   
   <div class="row">
   <div class="col-md-4">
@@ -137,12 +148,39 @@
   </nav>
   </template>
   
+ <template name="message">
  
+ <div class="container" style="background-color:red;">
+	<form role="form" id="message-form">
+		<div class="form-group">
+			<label for="inputemail">Message</label>
+			<input type="text" class="form-control" id="inputEmail" placeHolder="Enter message">
+		</div>
+		<div class="form-group">
+			<label for="inputuser">Send to the following user</label>
+			<input type="text" class="form-control" id="inputSubject" placeHolder="User">
+		</div>
+		
+		<button type="submit" class="btn btn-primary">Send Message</button>
+	</form>
+	
+  </div>	
+ 
+ </template>
 
-<template name="collegeInfo">
+<template name="collegeInfo"  class="p3">
   <h3>NUI Galway is the third largest University in Ireland.</h3>
   <h3>It is based in the heart of Galway City.</h3>
   <h1>About us</h1><br>
+ 
+ <p style="background-color:black;">
+  
+  NUI Galway (Irish OÉ Gaillimh) is a constituent university of the National University of Ireland. It is located in Ireland's westerly city of Galway. A tertiary-level educational institution, it is ranked among the top 2 per cent of universities in the world.[2] The University is ranked #249 in the 2016 QS World University Rankings and has been also been awarded the full five QS stars for excellence.[3]
+
+The university was founded in 1845 as Queen's College, Galway, and was more recently known as University College, Galway (UCG) (Irish: Coláiste na hOllscoile, Gaillimh or COG). Alumni include the incumbent Taoiseach and President of Ireland, Enda Kenny and Michael D. Higgins respectively, as well as numerous other prominent politicians. Other leading figures in Irish official life to have been educated here include Attorney General Máire Whelan and Comptroller and Auditor General Seamus McCarthy.
+
+NUI Galway is a member of the Coimbra Group, a network of 40 long-established European universities.
+</p>
 	
   <div class="center">
 	  <iframe
@@ -154,19 +192,134 @@
   </div>	  
 </template>
 
+<template name="searchForm10">   
+  <h1>This is my Search Form.</h1><br>     
+</template>
+
+<template name="aboutUs">
+  <h1>AboutUS Kevin C Lecture Room Search</h1>
+</template>
+
+<template name="contactUs">
+  <h1>This is the ContactUs template displaying this line of text.</h1>
+</template>
 
 <template name="home">
 
 <h1>This is the Home Page.</h1>
 <h1> Here are some comments!</h1>
-			<!--{{> comments}} -->
+			 
 			{{> posts}}<br><br><br><br><br><br><br><br><br>
-			{{> showComments }}
+			{{> showComments }} 
+			
+			<!--{{> email}} -->
 				
 </template>
 
+<template name="map" >
+
+<h1>The NUIG map</h1>
+
+<div style="background-color=black;" >
+
+<a href="images/nuig_map.jpg" class="thumbnail">
+      <h4>NUIG MAP</h4> 
+      <img src="images/nuig_map.jpg" alt="Pulpit Rock" style="width:1000px;height:500px">
+    </a>
+	
+	</div>
+	<!--
+<div style="background-color=black;">
+<div style="padding-right: 100px;padding-left: 100px;">
+<img src="images/nuig_map.jpg" align="middle" width="1500" height="600" >
+</div>
+</div>-->
+
+</template>
+<template name  = "comments">
+<p class="p1">
+<table class ="table table-borderless">
+
+<thead>
+
+<tr>
 
 
+<th style="color:blue;margin-left:30px;font-size: 50px;">Comment</th>
+
+
+
+<th style="color:blue;margin-left:30px;font-size: 50px;">User</th>
+
+<th style="color:blue;margin-left:30px;font-size: 50px;">Date</th>
+
+
+
+</tr>
+
+</thead>
+<tbody>
+
+{{#each comments}}
+<tr>
+<td> 
+<p class="p1">
+
+{{Comment}}
+</p>
+
+</td>
+<td>
+
+{{User}}
+
+</td>
+
+<td>
+
+{{Date}}
+
+</td>
+</tr>
+
+
+{{/each}}
+
+
+</tbody>
+</table>
+</p>
+<div style = "background-color: red;">
+
+{{#if currentUser}}
+
+<th style="color:blue;margin-left:30px;font-size: 50px;">Leave a comment:</th>
+
+  <form class="addCommentForm">
+	<div class="row">
+	<select name = "dropdown" id = "dropdown">
+  <option value="public">Public</option>
+  <option value="anonymous">Anonymous</option>
+	</select>
+		
+		<div class="col-sm-6">
+			<input class="form-control" type="text"
+				name="Comment" placeHolder="Please Enter Comment Here">
+		</div>
+	</div>
+
+		<input type="submit" value="Leave comment" class="btn btn-primary">
+		
+	</form>
+
+{{else}}
+<h2>
+YOU MUST BE LOGGED IN TO COMMENT!
+</h2>
+{{/if}}
+
+</div>
+</template>
 
 <template name ="posts">
 <div class="row col-xs-10 col-xs-offset-1">
@@ -236,7 +389,7 @@
 					</div>
 </template>
 						
-					
+				
 				
 				
 <template name = "nuigmap">
